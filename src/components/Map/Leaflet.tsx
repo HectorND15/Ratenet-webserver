@@ -30,7 +30,7 @@ function MapComponent() {
 
       const map = L.map(mapRef.current).setView(userPosition, 13);
 
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
          attribution: '© OpenStreetMap contributors'
       }).addTo(map);
 
