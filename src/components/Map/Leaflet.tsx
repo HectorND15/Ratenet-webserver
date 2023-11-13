@@ -35,10 +35,10 @@ function MapComponent() {
       }).addTo(map);
 
       L.circle(userPosition, {
-         color: 'blue',      // Color of the circle
-         fillColor: '#f03',  // Fill color
-         fillOpacity: 0.5,   // Fill opacity
-         radius: 500 
+         color: '#406DFF',      // Color of the circle
+         fillColor: '#294397',  // Fill color
+         fillOpacity: 0.3,   
+         radius: 1 
       }).addTo(map)
       L.marker(userPosition).addTo(map);
 
