@@ -31,7 +31,7 @@ function MapComponent() {
 
       const map = L.map(mapRef.current).setView(userPosition, 16);
 
-      L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+      L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
 
       }).addTo(map);
       
