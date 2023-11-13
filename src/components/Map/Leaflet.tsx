@@ -34,6 +34,12 @@ function MapComponent() {
          attribution: '© OpenStreetMap contributors'
       }).addTo(map);
 
+      L.circle(userPosition, {
+         color: 'blue',      // Color of the circle
+         fillColor: '#f03',  // Fill color
+         fillOpacity: 0.5,   // Fill opacity
+         radius: 500 
+      }).addTo(map)
       L.marker(userPosition).addTo(map);
 
       return () => {
