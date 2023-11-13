@@ -28,7 +28,7 @@ function MapComponent() {
    useEffect(() => {
       if (mapRef.current === null || userPosition === null) return;
 
-      const map = L.map(mapRef.current).setView(userPosition, 13);
+      const map = L.map(mapRef.current).setView(userPosition, 15);
 
       L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
          attribution: '© OpenStreetMap contributors'

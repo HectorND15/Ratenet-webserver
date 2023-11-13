@@ -1,4 +1,4 @@
-name: Deploy to Server on Push
+name: Deploy to Server
 
 on:
   push:
@@ -20,6 +20,7 @@ jobs:
         username: ${{ secrets.SERVER_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
+          echo "Deploying to Server"
+          echo {{ secrets.SERVER_HOST }}
           cd /home/ratenet/Ratenet-webserver
           git pull origin main
-          # Add any other deployment scripts here, like restarting services
