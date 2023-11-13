@@ -28,7 +28,7 @@ function MapComponent() {
    useEffect(() => {
       if (mapRef.current === null || userPosition === null) return;
 
-      const map = L.map(mapRef.current).setView(userPosition, 15);
+      const map = L.map(mapRef.current).setView(userPosition, 16);
 
       L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
          attribution: '© OpenStreetMap contributors'
@@ -38,9 +38,8 @@ function MapComponent() {
          color: '#406DFF',      // Color of the circle
          fillColor: '#294397',  // Fill color
          fillOpacity: 0.3,   
-         radius: 1 
+         radius: 3 
       }).addTo(map)
-      L.marker(userPosition).addTo(map);
 
       return () => {
          map.remove();
