@@ -5,7 +5,7 @@ function MapComponent() {
    const mapRef = useRef(null);
    const [userPosition, setUserPosition] = useState(null);
 
-   // Función para obtener la ubicación del usuario
+   // Function to get the user's location
    const getUserLocation = () => {
       navigator.geolocation.getCurrentPosition(
          (position) => {
@@ -13,7 +13,10 @@ function MapComponent() {
             setUserPosition([latitude, longitude]);
          },
          () => {
-            console.error("No se pudo obtener la ubicación del usuario.");
+            console.error("Failed to get user location. Using default location.");
+            const defaultLatitude = 11.0190513; // Set default latitude
+            const defaultLongitude = -74.8511425; // Set default longitude
+            setUserPosition([defaultLatitude, defaultLongitude]);
          }
       );
    };
@@ -25,18 +28,14 @@ function MapComponent() {
    useEffect(() => {
       if (mapRef.current === null || userPosition === null) return;
 
-      // Crear el mapa y centrarlo en la ubicación del usuario
       const map = L.map(mapRef.current).setView(userPosition, 13);
 
-      // Añadir capa de mapa base
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
          attribution: '© OpenStreetMap contributors'
       }).addTo(map);
 
-      // Añadir marcador en la ubicación del usuario
       L.marker(userPosition).addTo(map);
 
-      // Limpieza al desmontar el componente
       return () => {
          map.remove();
       };
