@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
+import icon from '@/assets/location-pin.svg';
 
 function MapComponent() {
    const mapRef = useRef(null);
@@ -31,15 +32,17 @@ function MapComponent() {
       const map = L.map(mapRef.current).setView(userPosition, 16);
 
       L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
-         attribution: '© OpenStreetMap contributors'
-      }).addTo(map);
 
-      L.circle(userPosition, {
-         color: '#406DFF',      // Color of the circle
-         fillColor: '#294397',  // Fill color
-         fillOpacity: 0.3,   
-         radius: 3 
-      }).addTo(map)
+      }).addTo(map);
+      
+      var blueMarker = L.icon({
+         iconUrl: icon,
+         iconSize: [30,30],
+         iconAnchor: [15,30]
+      })
+      L.marker(userPosition, {
+         icon: blueMarker
+      }).addTo(map);
 
       return () => {
          map.remove();
