@@ -77,7 +77,7 @@ function MapComponent() {
    return (
       <div ref={mapRef} className='h-screen w-screen'>
          {!isCentered && (
-            <div className='rounded-md bg-orange-200 flex flex-col absolute top-[15px] p-2 right-[15px] z-[1000] border-spacing-1'>
+            <div className='rounded-md bg-orange-200 flex flex-col absolute bottom-[15px] p-2 left-[15px] z-[1000] border-spacing-1'>
                <button onClick={centerMap}>
                   <img src={icon_center} alt="10" className='h-8' />
                </button>
