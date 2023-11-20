@@ -1,21 +1,3 @@
-// const map = L.map('map', {zoomControl: true}).setView([11.02130401,-74.85207962], 17);
-
-
-// googleTerrain = L.tileLayer('http://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',{
-//    maxZoom: 20,
-//    subdomains:['mt0','mt1','mt2','mt3']
-// });
-// googleTerrain.addTo(map);
-// // var hexLayer = L.hexbinLayer({ duration: 400, radiusRange: [ 5, 11 ] })
-// //    .radiusValue(function(d) { return d.length; })
-// //    .hoverHandler(L.HexbinHoverHandler.compound({
-// //       handlers: [
-// //          L.HexbinHoverHandler.resizeFill(),
-// //          L.HexbinHoverHandler.tooltip()
-// //       ]
-// //    }));
-
-
 var center = [ 11.0190722,-74.8508113 ];
 var layer = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
    maxZoom: 18,
