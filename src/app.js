@@ -99,6 +99,32 @@ app.post('/mos/receive-json', (req, res) => {
    });
 });
 
+app.get('/get-map-data', (req, res) => {
+   const tableName = req.query.table;
+   const query = `SELECT latitude, longitude, rating FROM ${tableName}`;
+   connection.query(query, (err, result) => {
+      if(err) {
+         console.log(err);
+         res.status(500).send("Error fetching data");
+      } else{
+         res.json(result);
+      }
+   });
+});
+
+
+app.get('/get-table-names', (req, res) => {
+   const query = `SHOW TABLES`;
+   connection.query(query, (err, result) => {
+      if(err) {
+         console.log(err);
+         res.status(500).send("Error fetching tables name");
+      } else{
+         const tableNames = result.map(row => Object.values(row)[0]);
+         res.json(tableNames);
+      }
+   });
+});
 
 
 app.use(express.static(path.join(__dirname, 'public')));

@@ -23,10 +23,48 @@ var options = {
 // Create the hexlayer
 var hexLayer = L.hexbinLayer(options).addTo(map);
 
-var data = [
-   { location: [11.019703, -74.851488], value: 5 },
-   { location: [11.019451, -74.849810], value: 5 },
-];
+var dataA = [];
+function fetchData(tableName) {
+   fetch(`/get-map-data?table=${tableName}`)
+      .then(response => response.json())
+      .then(data => {
+         hexLayer.data(data.map(function(d) { return [d.longitude, d.latitude, d.calc_mos]; }));
+         map.addLayer(hexLayer);
+         
+      })
+      .catch(err => console.log(err));
+      
+}
 
-hexLayer.data(data.map(function(d) { return [d.location[1], d.location[0], d.value]; }));
-map.addLayer(hexLayer);
+function setupDropdownAndButton() {
+   // Fetch table names and populate dropdown
+   fetch('/get-table-names')
+         .then(response => response.json())
+         .then(tables => {
+            const select = document.createElement('select');
+            tables.forEach(table => {
+               const option = document.createElement('option');
+               option.value = table;
+               option.textContent = table;
+               select.appendChild(option);
+            });
+
+            const button = document.createElement('button');
+            button.textContent = 'Search';
+            button.onclick = () => fetchData(select.value);
+
+            // Add the select and button to a container on the map
+            const container = L.control({position: 'topright'});
+            container.onAdd = function () {
+               const div = L.DomUtil.create('div', 'table-select-container');
+               div.appendChild(select);
+               div.appendChild(button);
+               return div;
+            };
+            container.addTo(map);
+         })
+         .catch(error => console.error('Error:', error));
+}
+
+setupDropdownAndButton();
+
