@@ -27,7 +27,7 @@ connection.connect((err) => {
    console.log('Connected to MySQL Server!');
 });
 
-app.get('/', (_req, res) => {
+app.get('/map/', (_req, res) => {
       res.render('index');
 });
 
