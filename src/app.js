@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const engine = require('ejs-mate');
 const mysql = require('mysql2');
+const { env } = require('process');
 const dotenv = require('dotenv').config();
 
 
@@ -19,6 +20,8 @@ const connection = mysql.createConnection({
    database: process.env.DB_NAME
 });
 
+app.use(express.json());
+
 connection.connect((err) => {
    if (err) throw err;
    console.log('Connected to MySQL Server!');
@@ -33,12 +36,12 @@ app.post('/mos/receive-json', (req, res) => {
    console.log(jsonData);
 
    const { network_information } = req.body;
-   const tableName = network_information.operatorName;
+   const tableName = network_information.operatorName.toLowerCase() + "_mos";
 
    const tableExistsQuery = `
       SELECT COUNT(*)
       FROM information_schema.tables 
-      WHERE table_schema = 'yourdatabase' 
+      WHERE table_schema = '${process.env.DB_NAME}' 
       AND table_name = '${tableName}';
    `;
 
@@ -56,22 +59,23 @@ app.post('/mos/receive-json', (req, res) => {
                latency FLOAT,
                packetLoss FLOAT,
                jitter FLOAT,
-               rating INT,
                networkName VARCHAR(50),
                rssi INT,
                latitude FLOAT,
-               longitude FLOAT
+               longitude FLOAT,
+               rating INT,
+               calc_mos FLOAT
             );
          `;
          connection.query(createTableQuery, (err) => {
             if (err) throw err;
-            // Table created
+            console.log('Table created successfully: ' + tableName);
          });
       }
 
       // Insert data into the table
       const insertDataQuery = `
-      INSERT INTO ${tableName} (fullname, phone, latency, packetLoss, jitter, rating, networkName, rssi, latitude, longitude) 
+      INSERT INTO ${tableName} (fullname, phone, latency, packetLoss, jitter, networkName, rssi, latitude, longitude, rating) 
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
       `;
       const values = [
@@ -80,16 +84,16 @@ app.post('/mos/receive-json', (req, res) => {
          req.body.MOS.latency,
          req.body.MOS.packetLoss,
          req.body.MOS.jitter,
-         req.body.MOS.rating,
          req.body.network_information.networkName,
          req.body.network_information.rssi,
          req.body.location.latitude,
-         req.body.location.longitude
+         req.body.location.longitude,
+         req.body.MOS.rating
       ];
 
       connection.query(insertDataQuery, values, (err) => {
          if (err) throw err;
-         // Data inserted
+         console.log('Data inserted successfully');
          res.send('Data inserted successfully');
       });
    });
