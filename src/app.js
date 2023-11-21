@@ -63,7 +63,7 @@ app.post('/mos/receive-json', (req, res) => {
                rssi INT,
                latitude FLOAT,
                longitude FLOAT,
-               rating INT,
+               rating FLOAT,
                calc_mos FLOAT
             );
          `;
