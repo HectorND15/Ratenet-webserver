@@ -25,8 +25,7 @@ function getColor(value) {
    var fillColor = `rgb(${r},${g},${b})`;
    var borderColor = `rgb(${Math.floor(r * 0.7)}, ${Math.floor(g * 0.7)}, ${Math.floor(b * 0.7)})`;
    return { fillColor, borderColor };
-}return { fillColor, borderColor };
-
+}
 
 function createCircleMarker(lat, lng, value) {
    var colors = getColor(value);
