@@ -40,7 +40,7 @@ function createCircleMarker(lat, lng, value) {
    var marker = L.circleMarker([lat, lng], {
          radius: 30,
          fillColor: colors.fillColor,
-         fillOpacity: 0.3,
+         fillOpacity: 0.5,
          color: colors.borderColor,
          weight: 2
    }).addTo(map);
