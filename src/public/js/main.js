@@ -6,7 +6,6 @@ L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
    attribution: '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-
 function getColor(value) {
    let r, g, b = 0;
 
@@ -15,11 +14,11 @@ function getColor(value) {
 
    if (value <= 2) {
        // Rojo a Amarillo (0 - 2)
-      r = 255;
-      g = Math.floor(255 * (value / 2)); // Interpolar de rojo a amarillo
+       r = 255;
+       g = Math.floor(255 * (value / 2)); // Interpolar de rojo a amarillo
    } else {
        // Amarillo a Verde (2 - 5)
-      g = 255;
+       g = 255;
        r = 255 - Math.floor(255 * ((value - 2) / (maxGreenValue - 2))); // Interpolar de amarillo a verde
    }
 
@@ -28,6 +27,8 @@ function getColor(value) {
 
    return { fillColor, borderColor };
 }
+
+
 
 
 function createCircleMarker(lat, lng, value) {
