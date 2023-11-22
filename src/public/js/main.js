@@ -7,28 +7,27 @@ L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 function getColor(value) {
-   let r = 255;
-   let g = 0;
-   let b = 0;
+   var colors = {
+       2: 'red',
+       3: 'yellow',
+       5: 'green'
+   };
 
-   if (value < 2.2) {
-       // Rojo para valores menores a 2.2
+   if (value <= 2) return colors[2];
+   if (value >= 5) return colors[5];
+
+   var r, g, b = 0;
+   if (value < 3) {
+       // Interpolar entre rojo y amarillo
        r = 255;
-       g = 0;
-   } else if (value < 4.3) {
-       // Interpolar entre rojo y verde (pasando por amarillo)
-       g = Math.floor(255 * (value - 2.2) / 2.1);
-       r = 255 - g;
+       g = Math.floor(255 * (value - 2));
    } else {
-       // Verde para valores de 4.3 en adelante
-       r = 0;
+       // Interpolar entre amarillo y verde
+       r = Math.floor(255 * (1 - (value - 3) / 2));
        g = 255;
    }
 
-   var fillColor = `rgb(${r},${g},${b})`;
-   var borderColor = `rgb(${Math.floor(r * 0.8)}, ${Math.floor(g * 0.8)}, ${Math.floor(b * 0.8)})`;
-
-   return { fillColor, borderColor };
+   return `rgb(${r},${g},${b})`;
 }
 
 
