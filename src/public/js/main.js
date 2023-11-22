@@ -34,10 +34,10 @@ function getColor(value) {
 
 function createCircleMarker(lat, lng, value) {
    return L.circleMarker([lat, lng], {
-         radius: 10, // Tamaño más grande
+         radius: 30, // Tamaño más grande
          fillColor: getColor(value),
-         fillOpacity: 0.8,
-         color: 'none' // Sin borde negro
+         fillOpacity: 0.5,
+         color: '#000' // Sin borde negro
    }).addTo(map);
 }
 
