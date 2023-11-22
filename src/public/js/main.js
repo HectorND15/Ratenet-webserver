@@ -38,9 +38,9 @@ function getColor(value) {
 function createCircleMarker(lat, lng, value) {
    var colors = getColor(value);
    var marker = L.circleMarker([lat, lng], {
-         radius: 10,
+         radius: 30,
          fillColor: colors.fillColor,
-         fillOpacity: 0.8,
+         fillOpacity: 0.3,
          color: colors.borderColor,
          weight: 2
    }).addTo(map);
