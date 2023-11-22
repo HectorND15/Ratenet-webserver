@@ -10,6 +10,11 @@ var heatmapLayer = new L.heatLayer([], {
    radius: 25,
    blur: 15,
    maxZoom: 17,
+   gradient: {
+       0.2: 'red',    // 1 will be red
+       0.6: 'yellow', // 3 will be yellow
+       1.0: 'green'   // 5 will be green
+   }
 }).addTo(map);
 
 function fetchData(tableName) {
