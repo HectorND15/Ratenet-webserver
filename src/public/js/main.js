@@ -10,9 +10,9 @@ L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 function getColor(value) {
    var colors = {
-         2: 'red',
-         3: 'yellow',
-         5: 'green'
+      2: 'red',
+      3: 'yellow',
+      5: 'green'
    };
 
    if (value <= 2) return colors[2];
@@ -29,16 +29,26 @@ function getColor(value) {
          g = 255;
    }
 
-   return `rgb(${r},${g},${b})`;
+   var fillColor = `rgb(${r},${g},${b})`;
+   // Oscurece el color para el borde
+   var borderColor = `rgb(${Math.floor(r * 0.8)}, ${Math.floor(g * 0.8)}, ${Math.floor(b * 0.8)})`;
+   return { fillColor, borderColor };
 }
 
 function createCircleMarker(lat, lng, value) {
-   return L.circleMarker([lat, lng], {
-         radius: 30, // Tamaño más grande
-         fillColor: getColor(value),
-         fillOpacity: 0.5,
-         color: '#000' // Sin borde negro
+   var colors = getColor(value);
+   var marker = L.circleMarker([lat, lng], {
+         radius: 10,
+         fillColor: colors.fillColor,
+         fillOpacity: 0.8,
+         color: colors.borderColor,
+         weight: 2
    }).addTo(map);
+
+   // Agrega un tooltip
+   marker.bindTooltip(`MOS = ${value}`, { permanent: false, direction: "top" });
+
+   return marker;
 }
 
    function fetchData(tableName) {
