@@ -18,9 +18,9 @@ function getColor(value) {
 function createCircleMarker(lat, lng, value) {
    var colors = getColor(value);
    var marker = L.circleMarker([lat, lng], {
-       radius: 30,
+       radius: 10,
        fillColor: colors.fillColor,
-       fillOpacity: 0.4,
+       fillOpacity: 0.8,
        color: colors.borderColor,
        weight: 2
    }).addTo(map);
@@ -33,13 +33,6 @@ function createCircleMarker(lat, lng, value) {
 
 // fetchData se mantiene igual
 
-
-
-   // Agrega un tooltip
-   marker.bindTooltip(`MOS = ${value}`, { permanent: false, direction: "top" });
-
-   return marker;
-}
 
    function fetchData(tableName) {
       fetch(`/get-map-data?table=${tableName}`)
