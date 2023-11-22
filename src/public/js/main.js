@@ -6,27 +6,35 @@ L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
    attribution: '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-var heatmapLayer = new L.heatLayer([], {
-   radius: 25,
-   blur: 15,
-   maxZoom: 17,
-   gradient: {
-       0.0: 'red',    // Valor 0 será rojo
-       0.5: 'yellow', // Valor intermedio (2.5) será amarillo
-       1.0: 'green'   // Valor 5 será verde
+function createCircleMarker(lat, lng, value) {
+   var color;
+   if (value <= 1) {
+      color = 'red';
+   } else if (value <= 3) {
+      color = 'yellow';
+   } else {
+      color = 'green';
    }
-}).addTo(map);
 
+   return L.circleMarker([lat, lng], {
+      radius: 8,
+      fillColor: color,
+      color: '#000',
+      weight: 1,
+      opacity: 1,
+      fillOpacity: 0.8
+      }).addTo(map);
+   }
 
-function fetchData(tableName) {
-   fetch(`/get-map-data?table=${tableName}`)
-      .then(response => response.json())
-      .then(data => {
-         console.log(data);
-         var heatmapData = data.map(item => [item.latitude, item.longitude, item.rating]);
-         heatmapLayer.setLatLngs(heatmapData);
-      })
-      .catch(err => console.error(err));
+   function fetchData(tableName) {
+      fetch(`/get-map-data?table=${tableName}`)
+         .then(response => response.json())
+         .then(data => {
+            data.forEach(item => {
+               createCircleMarker(item.latitude, item.longitude, item.rating);
+            });
+         })
+         .catch(err => console.error(err));
 }
 
 
