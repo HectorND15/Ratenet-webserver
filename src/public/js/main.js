@@ -7,40 +7,33 @@ L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 function getColor(value) {
-   var colors = {
-       2: 'red',
-       3: 'yellow',
-       5: 'green'
-   };
+   // ... código existente para calcular el color basado en el valor ...
 
-   if (value <= 2) return colors[2];
-   if (value >= 5) return colors[5];
-
-   var r, g, b = 0;
-   if (value < 3) {
-       // Interpolar entre rojo y amarillo
-       r = 255;
-       g = Math.floor(255 * (value - 2));
-   } else {
-       // Interpolar entre amarillo y verde
-       r = Math.floor(255 * (1 - (value - 3) / 2));
-       g = 255;
-   }
-
-   return `rgb(${r},${g},${b})`;
+   var fillColor = `rgb(${r},${g},${b})`;
+   // Oscurece el color para el borde
+   var borderColor = `rgb(${Math.floor(r * 0.8)}, ${Math.floor(g * 0.8)}, ${Math.floor(b * 0.8)})`;
+   return { fillColor, borderColor };
 }
-
-
 
 function createCircleMarker(lat, lng, value) {
    var colors = getColor(value);
    var marker = L.circleMarker([lat, lng], {
-         radius: 30,
-         fillColor: colors.fillColor,
-         fillOpacity: 0.4,
-         color: colors.borderColor,
-         weight: 2
+       radius: 30,
+       fillColor: colors.fillColor,
+       fillOpacity: 0.4,
+       color: colors.borderColor,
+       weight: 2
    }).addTo(map);
+
+   // Agrega un tooltip
+   marker.bindTooltip(`MOS = ${value}`, { permanent: false, direction: "top" });
+
+   return marker;
+}
+
+// fetchData se mantiene igual
+
+
 
    // Agrega un tooltip
    marker.bindTooltip(`MOS = ${value}`, { permanent: false, direction: "top" });
