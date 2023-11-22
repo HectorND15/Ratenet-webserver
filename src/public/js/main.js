@@ -1,40 +1,28 @@
-var center = [ 11.0190722,-74.8508113 ];
-var layer = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+var center = [ 11.0190722, -74.8508113 ];
+var map = L.map('map').setView(center, 18);
+
+L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
    maxZoom: 18,
    attribution: '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-});
+}).addTo(map);
 
-var map = L.map('map', {
-   layers: [ layer ],
-   center: L.latLng(center[0], center[1]),
-   zoom: 18,
-   zoomSnap: 0.25,
+var heatmapLayer = new L.heatLayer([], {
+   radius: 25,
+   blur: 15,
+   maxZoom: 17,
+}).addTo(map);
 
-});
-
-var options = {
-   radiusRange: [5, 20],
-   opacity: 0.4,
-
-   colorScaleExtent: [1, 5],
-   colorRange: ['red', 'orange', 'yellow', 'lightgreen', 'green'],
-};
-
-// Create the hexlayer
-var hexLayer = L.hexbinLayer(options).addTo(map);
-
-var dataA = [];
 function fetchData(tableName) {
    fetch(`/get-map-data?table=${tableName}`)
       .then(response => response.json())
       .then(data => {
-         hexLayer.data(data.map(function(d) { return [d.longitude, d.latitude, d.calc_mos]; }));
-         map.addLayer(hexLayer);
-         
+         console.log(data);
+         var heatmapData = data.map(item => [item.latitude, item.longitude, item.rating]);
+         heatmapLayer.setLatLngs(heatmapData);
       })
-      .catch(err => console.log(err));
-      
+      .catch(err => console.error(err));
 }
+
 
 function setupDropdownAndButton() {
    // Fetch table names and populate dropdown
