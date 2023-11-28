@@ -56,7 +56,9 @@ function fetchData(tableName, columnName) {
       .then(data => {
          data.forEach(item => {
             console.log(item);
-            var marker = createCircleMarker(item.latitude, item.longitude, item.rating);
+            value = item.rating;
+            if (item.rating === null) value = item.calc_mos;
+            var marker = createCircleMarker(item.latitude, item.longitude, value);
             currentMarkers.push(marker);
          });
       })
