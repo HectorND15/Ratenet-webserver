@@ -57,7 +57,7 @@ function fetchData(tableName, columnName) {
          data.forEach(item => {
             console.log(item);
             value = item.rating;
-            if (item.rating === null) value = item.calc_mos;
+            if (item.rating === undefined) value = item.calc_mos;
             console.log(value);
             var marker = createCircleMarker(item.latitude, item.longitude, value);
             currentMarkers.push(marker);
