@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+      <meta name="description" content="RateNet">
+      
+      <title>RateNet</title>
+      <link rel="icon" type="image/x-icon" href="/NETRATE.svg">
+      
+      <style>
+         body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #04383F;
+         }
+         .icono-app {
+            width: 100px; /* Ajusta esto según el tamaño deseado */
+            margin-bottom: 30px; /* Espacio entre el icono y los botones */
+         }
+
+         .button {
+               padding: 10px 20px;
+               margin: 10px;
+               border: none;
+               border-radius: 5px;
+               cursor: pointer;
+               font-size: 16px;
+               transition: background-color 0.3s;
+               text-align: center;
+               width: 200px; /* Ajusta esto según el ancho deseado para tus botones */
+               font-weight: bold;
+         }
+
+         .download-button {
+               background-color: #FFA500; /* Orange background */
+               color: #04383F; /* White text */
+         }
+
+         .download-button:hover {
+               background-color: #cc8400; /* Darker orange background on hover */
+         }
+
+         .map-button {
+               background-color: #096572; /* Dark background as per your CSS */
+               color: #D9D9D9; /* White text */
+         }
+
+         .map-button:hover {
+               background-color: #032f2c; /* Slightly darker background on hover */
+         }
+
+         i {
+               margin-right: 5px;
+         }
+      </style>
+
+
+   </head>
+   <body>
+      <img src="/NETRATE_Logo.svg" class="icono-app" alt="Icono de la aplicación">
+
+      <button class="button download-button" onclick="window.location='/download';">
+         <i class="fa fa-download"></i> Descargar
+      </button>
+
+      <!-- Botón para ir al mapa -->
+      <button class="button map-button" onclick="window.location='/map/';">
+         Ir al mapa
+      </button>
+
+      <!-- FontAwesome para los iconos -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+   </body>
+</html>

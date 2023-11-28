@@ -31,9 +31,25 @@ connection.connect((err) => {
    console.log('Connected to MySQL Server!');
 });
 
+
+/**
+ * routes
+ */
 app.get('/map/', (_req, res) => {
       res.render('index');
 });
+
+app.get('/', (_req, res) => {
+   res.render('home'); 
+});
+
+app.get('/download', (req, res) => {
+   const file = `${__dirname}/public/downloads/RateNET.apk`;
+   res.download(file); // Set disposition and send it.
+});
+
+
+
 
 app.post('/mos/receive-json', (req, res) => {
    const jsonData = req.body;
