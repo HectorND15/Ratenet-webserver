@@ -1,5 +1,5 @@
 var center = [ 11.0190722, -74.8508113 ];
-var map = L.map('map').setView(center, 18);
+var map = L.map('map',{ zoomControl: false }).setView(center, 18);
 
 L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
    maxZoom: 18,
