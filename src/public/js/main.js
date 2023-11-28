@@ -97,7 +97,7 @@ function setupDropdownAndButton() {
          label.htmlFor = 'mosCalculated';
          label.textContent = 'MOS Calculado';
 
-         const container = L.control({position: 'bottomleft'});
+         const container = L.control({position: 'topleft'});
          container.onAdd = function () {
             const div = L.DomUtil.create('div', 'table-select-container');
             div.appendChild(select);
