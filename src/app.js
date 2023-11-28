@@ -13,6 +13,10 @@ app.engine('ejs', engine);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+const li = 9.869371247975462;
+const ji = 2.3245404961686953;
+const plri = 0.012753777393574861;
+
 const connection = mysql.createConnection({
    host: process.env.DB_HOST,
    user: process.env.DB_USER,
@@ -73,10 +77,21 @@ app.post('/mos/receive-json', (req, res) => {
          });
       }
 
+      // Calculate MOS
+      const MOS = calcularMOS(
+         req.body.MOS.latency,
+         req.body.MOS.jitter,
+         req.body.MOS.packetLoss,
+         li,
+         ji,
+         plri
+      );
+      console.log('MOS: ' + MOS);
+
       // Insert data into the table
       const insertDataQuery = `
-      INSERT INTO ${tableName} (fullname, phone, latency, packetLoss, jitter, networkName, rssi, latitude, longitude, rating) 
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+      INSERT INTO ${tableName} (fullname, phone, latency, packetLoss, jitter, networkName, rssi, latitude, longitude, rating, calc_mos) 
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
       `;
       const values = [
          req.body.user.fullname,
@@ -88,7 +103,8 @@ app.post('/mos/receive-json', (req, res) => {
          req.body.network_information.rssi,
          req.body.location.latitude,
          req.body.location.longitude,
-         req.body.MOS.rating
+         req.body.MOS.rating,
+         MOS
       ];
 
       connection.query(insertDataQuery, values, (err) => {
@@ -99,9 +115,30 @@ app.post('/mos/receive-json', (req, res) => {
    });
 });
 
+function calcularMOS(latencia, jitter, packetLoss, li, ji, plri) {
+   // Asegúrate de que los valores sean números
+   latencia = Number(latencia);
+   jitter = Number(jitter);
+   packetLoss = Number(packetLoss);
+   li = Number(li);
+   ji = Number(ji);
+   plri = Number(plri);
+
+   // Calcula e^(plr * plri) para usar en la fórmula
+   const exponente = Math.exp(packetLoss * plri);
+
+   // Calcula el MOS según la fórmula
+   const MOS = 0.999 + (4000 / (1 + (latencia * li + jitter * ji) * exponente));
+
+   return MOS;
+} 
+
 app.get('/get-map-data', (req, res) => {
    const tableName = req.query.table;
-   const query = `SELECT latitude, longitude, rating FROM ${tableName}`;
+   const columnName = req.query.column;
+   console.log(req.query);
+   const query = `SELECT latitude, longitude, ${columnName} FROM ${tableName}`;
+   console.log(query);
    connection.query(query, (err, result) => {
       if(err) {
          console.log(err);

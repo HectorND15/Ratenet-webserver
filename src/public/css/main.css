@@ -15,14 +15,51 @@ html, body {
 }
 
 .table-select-container {
+   width: 150px;
    padding: 10px;
-   background: white;
-   border-radius: 5px;
+   background: #04383F;
+   align-items: center;
+   border-radius: 10px;
    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
+.table-select-container select {
+   width: 80%;
+   display: block;
+   margin-bottom: 5px;
+}
 
-.hexbin-hexagon {
-   stroke: #000;
-   stroke-width: 1px;
+.table-select-container label {
+   color: white; /* Set label text color to white */
+   font-weight: bold;
+   margin-left: 5px; /* Space between the checkbox and the label */
+}
+
+.table-select-container input[type="checkbox"] {
+}
+
+.table-select-container button {
+   width: 100%;
+   margin-top: 20px; /* Add some space above the button */
+   display: flex; /* Use flexbox for centering the content */
+   justify-content: center; /* Center the button content horizontally */
+   align-items: center; /* Center the button content vertically */
+   padding: 10px 0; /* Add padding above and below the text/icon */
+}
+
+/* Add a class for the search icon inside the button */
+.search-icon {
+   background-image: url('path-to-lupa-icon.png'); /* Replace with the path to your lupa icon image */
+   background-size: contain;
+   background-repeat: no-repeat;
+   background-position: center;
+   display: inline-block;
+   width: 16px; /* Width of the icon */
+   height: 16px; /* Height of the icon */
+   margin-right: 5px; /* Space between the icon and the text, if needed */
+}
+
+.table-select-container .search-icon {
+   display: inline-block;
+   text-align: center;
 }

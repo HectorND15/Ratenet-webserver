@@ -47,14 +47,15 @@ function createCircleMarker(lat, lng, value) {
    return marker;
 }
 
-function fetchData(tableName) {
+function fetchData(tableName, columnName) {
    currentMarkers.forEach(marker => map.removeLayer(marker));
    currentMarkers = [];
 
-   fetch(`/get-map-data?table=${tableName}`)
+   fetch(`/get-map-data?table=${tableName}&column=${columnName}`)
       .then(response => response.json())
       .then(data => {
          data.forEach(item => {
+            console.log(item);
             var marker = createCircleMarker(item.latitude, item.longitude, item.rating);
             currentMarkers.push(marker);
          });
@@ -69,19 +70,36 @@ function setupDropdownAndButton() {
          const select = document.createElement('select');
          tables.forEach(table => {
             const option = document.createElement('option');
+            const displayName = table.replace(/_mos$/, '');
             option.value = table;
-            option.textContent = table;
+            option.textContent = displayName.toUpperCase();
             select.appendChild(option);
          });
 
-         const button = document.createElement('button');
-         button.textContent = 'Search';
-         button.onclick = () => fetchData(select.value);
+         const button = document.createElement('button', 'table-select-button');
+         button.textContent = 'Buscar';
+         button.onclick = () => {
+            const columnName = checkbox.checked ? 'calc_mos' : 'rating';
+            fetchData(select.value, columnName);
+         };
 
-         const container = L.control({position: 'topright'});
+         // Create checkbox for "MOS Calculado"
+         const checkbox = document.createElement('input');
+         checkbox.type = 'checkbox';
+         checkbox.id = 'mosCalculated';
+         checkbox.name = 'mosCalculated';
+
+         // Create label for the checkbox
+         const label = document.createElement('label');
+         label.htmlFor = 'mosCalculated';
+         label.textContent = 'MOS Calculado';
+
+         const container = L.control({position: 'bottomleft'});
          container.onAdd = function () {
             const div = L.DomUtil.create('div', 'table-select-container');
             div.appendChild(select);
+            div.appendChild(checkbox);
+            div.appendChild(label);
             div.appendChild(button);
             return div;
          };
