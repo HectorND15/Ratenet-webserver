@@ -58,6 +58,7 @@ function fetchData(tableName, columnName) {
             console.log(item);
             value = item.rating;
             if (item.rating === null) value = item.calc_mos;
+            console.log(value);
             var marker = createCircleMarker(item.latitude, item.longitude, value);
             currentMarkers.push(marker);
          });
