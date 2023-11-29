@@ -70,7 +70,6 @@ html, body {
    bottom: 18px;
    right: 5px;
    background-color: white;
-   font-family: 'Monda', sans-serif;
    padding: 10px;
    border-radius: 5px;
    font-size: 14px;
@@ -91,9 +90,21 @@ html, body {
    width: 18px;
    height: 18px;
    display: inline-block;
-   margin-right: 8px;
-   opacity: 0.7;
+   vertical-align: middle; /* Alinea verticalmente los cuadros con el texto */
+   margin-right: 4px; /* Espacio entre el cuadro y el texto */
 }
+
+#legend .legend-labels span {
+   vertical-align: middle; /* Alinea verticalmente el texto con los cuadros */
+   display: inline-block;
+}
+
+#legend .legend-labels div {
+   display: flex;
+   align-items: center;
+   margin: 0;
+}
+
 
 /* @media (max-width: 767px) {
    #legend {
