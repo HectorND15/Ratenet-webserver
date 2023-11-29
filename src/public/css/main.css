@@ -46,11 +46,13 @@ html, body {
 
 .table-select-container button {
    width: 100%;
-   margin-top: 20px; /* Add some space above the button */
-   display: flex; /* Use flexbox for centering the content */
-   justify-content: center; /* Center the button content horizontally */
-   align-items: center; /* Center the button content vertically */
-   padding: 10px 0; /* Add padding above and below the text/icon */
+   background-color: #FFA500;
+   font-size: medium;
+   margin-top: 20px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   padding: 10px 0;
 }
 
 /* Add a class for the search icon inside the button */
