@@ -32,23 +32,6 @@ function getColor(value) {
    return { fillColor, borderColor };
 }
 
-function addLegend() {
-   var legend = L.control({ position: 'bottomright' });
-
-   legend.onAdd = function (map) {
-      var div = L.DomUtil.create('div', 'legend');
-      div.innerHTML += '<div class="legend-gradient"></div>';
-      div.innerHTML += '<i style="background: rgb(0,255,0)"></i> <span>Calidad Buena  (MOS > 4.3)</span><br>';
-      div.innerHTML += '<i style="background: rgb(255,165,0)"></i> <span>Calidad Media   (2.2 < MOS <= 4.3)</span><br>';
-      div.innerHTML += '<i style="background: rgb(255,0,0)"></i> <span>Calidad Mala     (MOS <= 2.2)</span>';
-      return div;
-   };
-
-   legend.addTo(map);
-}
-
-
-
 
 function createCircleMarker(lat, lng, value) {
    var colors = getColor(value);
@@ -129,4 +112,3 @@ function setupDropdownAndButton() {
 }
 
 setupDropdownAndButton();
-addLegend();
