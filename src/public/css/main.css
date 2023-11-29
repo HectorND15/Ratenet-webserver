@@ -3,6 +3,8 @@
 html, body {
    height: 100%;
    margin: 0;
+   display: flex;
+   flex-direction: column;
 }
 
 .leaflet-tile {
@@ -14,6 +16,7 @@ html, body {
 #map  {
    height: 100vh;
    width: 100vw;
+   flex-grow: 1;
 }
 
 .table-select-container {
@@ -47,7 +50,8 @@ html, body {
 .table-select-container button {
    width: 100%;
    background-color: #FFA500;
-   font-size: medium;
+   color: black;
+   font-weight: 700;
    margin-top: 20px;
    display: flex;
    justify-content: center;
@@ -91,3 +95,12 @@ html, body {
    margin-right: 8px;
    opacity: 0.7;
 } 
+
+.legend-gradient {
+   width: 100%; /* O el ancho que prefieras */
+   height: 20px; /* Altura de la barra de gradiente */
+   background: linear-gradient(to right, rgb(255,0,0), rgb(255,165,0), rgb(0,255,0));
+   border: 1px solid #555; /* Opcional: añade un borde si lo deseas */
+   border-radius: 5px; /* Opcional: redondea las esquinas */
+   margin-bottom: 10px; /* Espacio debajo de la barra de gradiente */
+}
