@@ -97,6 +97,7 @@ html, body {
 #legend .legend-labels span {
    vertical-align: middle; /* Alinea verticalmente el texto con los cuadros */
    display: inline-block;
+   font-family: sans-serif;
 }
 
 #legend .legend-labels div {
