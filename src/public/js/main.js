@@ -15,15 +15,15 @@ function getColor(value) {
 
    if (value < 2.2) {
        // Rojo para valores menores a 2.2
-       g = 0;
+      g = 0;
    } else if (value < 4.3) {
        // Interpolar entre rojo y verde
-       g = Math.floor(255 * (value - 2.2) / 2.1);
-       r = 255 - g;
+      g = Math.floor(255 * (value - 2.2) / 2.1);
+      r = 255 - g;
    } else {
        // Verde para valores de 4.3 en adelante
-       r = 0;
-       g = 255;
+      r = 0;
+      g = 255;
    }
 
    var fillColor = `rgb(${r},${g},${b})`;
@@ -32,11 +32,27 @@ function getColor(value) {
    return { fillColor, borderColor };
 }
 
+function addLegend() {
+   var legend = L.control({ position: 'bottomright' });
+
+   legend.onAdd = function (map) {
+      var div = L.DomUtil.create('div', 'legend');
+      div.innerHTML += '<i style="background: rgb(0,255,0)"></i> <span>Calidad Buena  (MOS > 4.3)</span><br>';
+      div.innerHTML += '<i style="background: rgb(255,165,0)"></i> <span>Calidad Media   (2.2 < MOS <= 4.3)</span><br>';
+      div.innerHTML += '<i style="background: rgb(255,0,0)"></i> <span>Calidad Mala     (MOS <= 2.2)</span>';
+      return div;
+   };
+
+   legend.addTo(map);
+}
+
+
+
 
 function createCircleMarker(lat, lng, value) {
    var colors = getColor(value);
-   var marker = L.circleMarker([lat, lng], {
-         radius: 15,
+   var marker = L.circle([lat, lng], {
+         radius: 20,
          fillColor: colors.fillColor,
          fillOpacity: 0.5,
          color: colors.borderColor,
@@ -112,3 +128,4 @@ function setupDropdownAndButton() {
 }
 
 setupDropdownAndButton();
+addLegend();

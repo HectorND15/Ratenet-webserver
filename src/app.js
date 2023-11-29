@@ -152,9 +152,7 @@ function calcularMOS(latencia, jitter, packetLoss, li, ji, plri) {
 app.get('/get-map-data', (req, res) => {
    const tableName = req.query.table;
    const columnName = req.query.column;
-   console.log(req.query);
    const query = `SELECT latitude, longitude, ${columnName} FROM ${tableName}`;
-   console.log(query);
    connection.query(query, (err, result) => {
       if(err) {
          console.log(err);
