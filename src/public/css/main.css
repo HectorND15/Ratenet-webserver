@@ -104,3 +104,20 @@ html, body {
    border-radius: 5px; /* Opcional: redondea las esquinas */
    margin-bottom: 10px; /* Espacio debajo de la barra de gradiente */
 }
+
+
+@media (max-width: 767px) {
+   .legend {
+     position: absolute; /* Posicionamiento absoluto sobre el mapa */
+     bottom: 10px; /* A una distancia fija del fondo de la pantalla */
+     left: 10px; /* A una distancia fija del lado izquierdo de la pantalla */
+     max-width: 90%; /* No más ancha que la pantalla */
+     font-size: 12px; /* Un tamaño de fuente más pequeño para pantallas pequeñas */
+     padding: 6px; /* Un poco de padding para no pegar el texto a los bordes */
+     box-sizing: border-box; /* Para incluir el padding dentro del ancho y alto */
+   }
+
+   #map {
+     height: calc(100vh - 20px); /* Reduce la altura un poco para acomodar la leyenda */
+   }
+}
