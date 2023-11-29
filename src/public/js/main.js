@@ -52,7 +52,7 @@ function addLegend() {
 function createCircleMarker(lat, lng, value) {
    var colors = getColor(value);
    var marker = L.circle([lat, lng], {
-         radius: 20,
+         radius: 10,
          fillColor: colors.fillColor,
          fillOpacity: 0.5,
          color: colors.borderColor,
